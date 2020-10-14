@@ -10,3 +10,5 @@ sum(survey$Sex == 'Male' & survey$Smoke != 'Never', na.rm = TRUE)
 #mean height of males
 mean(survey$Height, na.rm = TRUE)
 
+#height and gender of 6th youngest students
+head(survey[survey$Age == sort(survey$Age), c("Height", "Sex")], 6)
