@@ -30,5 +30,14 @@ mostExpensive = y2000price[y2000price > 750000]
 #The mean value of mostExpensive
 mean(mostExpensive)
 
-#the price of the house which price has decreased from 1970 to 2000
+#the price of the houses which price has decreased from 1970 to 2000
 y2000price[which(y1970price > y2000price)]
+#or if we want to work with dataFrame
+data(homedata)
+homedata[which(y1970price > y2000price), 0:2]
+
+#vector which contains with how much percent has the price increased
+x = (y2000 - y1970price)/y1970price*100
+
+#the increase of the 10 houses with biggest increase in price
+head(sort(x, decreasing = TRUE), 10)
