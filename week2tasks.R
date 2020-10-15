@@ -59,3 +59,13 @@ hist(survey$Pulse)
 #графика плътността на разпределението на пулса 
 plot(density(survey$Pulse, na.rm = TRUE))
 
+#Зад 6
+group1 = survey[survey$Age < 20,]
+group2 = survey[survey$Age >= 20 & survey$Age < 25,]
+group3 = survey[survey$Age >= 25,]
+
+pie(x = c(nrow(group1), nrow(group3), nrow(group3)), labels = c('< 20', '20-25', '> 25'), main = 'Age of students')
+
+barplot(table(group1$Smoke), main = 'smoking habits, < 20 years')
+barplot(table(group2$Smoke), main = 'smoking habits, 20-25 years')
+barplot(table(group3$Smoke), main = 'smoking habits, > 25 years old')
