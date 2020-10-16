@@ -1,3 +1,18 @@
+---
+title: "Week 2 tasks"
+author: "teodor dyakov"
+date: "10/15/2020"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: 
+    latex_engine: lualatex
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r week 2}
 library(MASS)
 
 #намираме първо всички стойности в колоната Smoke
@@ -48,7 +63,8 @@ table['Male','Regul']
 barplot(table(survey$Smoke))
 
 #пушене в зависимост от пола
-barplot(c(maleSmokers, maleNumber - maleSmokers), names.arg = c('male smokers', 'male non-smokers'))
+table = prop.table(table(survey$Sex,survey$Smoke),)
+barplot(table, legend.text = TRUE)
 
 #Зад 3
 #некви статистики
@@ -88,3 +104,5 @@ pie(x = c(nrow(group1), nrow(group3), nrow(group3)), labels = c('< 20', '20-25',
 barplot(table(group1$Smoke), main = 'smoking habits, < 20 years')
 barplot(table(group2$Smoke), main = 'smoking habits, 20-25 years')
 barplot(table(group3$Smoke), main = 'smoking habits, > 25 years old')
+
+```
