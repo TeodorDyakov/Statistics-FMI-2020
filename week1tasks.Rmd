@@ -1,3 +1,11 @@
+---
+title: "Week 1"
+output:
+  word_document: default
+  html_notebook: default
+---
+
+```{r}
 #create vector of numbers
 vec<-c(8, 3, 8, 7, 15, 9, 12, 4, 9, 10, 5, 1)
 
@@ -47,15 +55,16 @@ mean(mostExpensive)
 
 #the price of the houses which price has decreased from 1970 to 2000
 y2000price[which(y1970price > y2000price)]
-#or if we want to work with dataFrame
-data(homedata)
 homedata[which(y1970price > y2000price), 0:2]
 
 #vector which contains with how much percent has the price increased
-x = (y2000 - y1970price)/y1970price*100
+x = (y2000price - y1970price)/y1970price*100
 
 #the increase of the 10 houses with biggest increase in price
 head(sort(x, decreasing = TRUE), 10)
+#или
+head(homedata[order(homedata$y1970/homedata$y2000),], 10)
+
 #load the library
 library(MASS)
 
@@ -69,4 +78,6 @@ sum(survey$Sex == 'Male' & survey$Smoke != 'Never', na.rm = TRUE)
 mean(survey$Height, na.rm = TRUE)
 
 #height and gender of 6th youngest students
-head(survey[survey$Age == sort(survey$Age), c("Height", "Sex")], 6)
+head(survey[order(survey$Age),c('Height', 'Sex')])
+```
+
