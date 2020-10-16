@@ -7,22 +7,41 @@ unique(survey$Smoke)
 #вероятноста случайно избран човек да е редовен пушач
 sum(survey$Smoke == 'Regul', na.rm = TRUE)/nrow(survey)
 
-maleSmokers = sum(survey$Smoke %in% c("Regul", "Heavy") & survey$Sex == 'Male', na.rm = TRUE)
+maleSmokers = sum(survey$Smoke == 'Regul' & survey$Sex == 'Male', na.rm = TRUE)
 
-#вероятността случайно ибзбран човек да е мъж и редовен пушач
+#вероятността случайно избран човек да е мъж и редовен пушач
 maleSmokers/nrow(survey)
 
 #броят на всички мъже
 maleNumber = sum(survey$Sex == 'Male', na.rm = TRUE)
 
 #вероятността случайно избран мъж да е редовен пушач
-prob = maleSmokers/maleNumber
+maleSmokers/maleNumber
 
 #броят на всички редовни пушачи
-regulOrHeavyCount = sum(survey$Smoke %in% c('Regul', 'Heavy'), na.rm = TRUE)
+regulCount = sum(survey$Smoke == 'Regul', na.rm = TRUE)
 
 #вероятноста случайно избран редовен пушач да е мъж
-maleSmokers/regulOrHeavyCount
+maleSmokers/regulCount
+
+
+#втори начин със позлване на prop.table()
+
+#вероятността случайно избран човек да е редовен пушач
+table = prop.table(table(survey$Smoke),)
+table['Regul']
+
+#вероятността случайно избран човек да е мъж и редовен пушач
+table = prop.table(table(survey$Sex,survey$Smoke),)
+table['Male', 'Regul']
+
+#вероятносттa мъж да е редовен пушач
+table = prop.table(table(survey$Sex,survey$Smoke), 1)
+table['Male', 'Regul']
+
+#вероятността редовен пушач да е мъж:
+table = prop.table(table(survey$Sex,survey$Smoke), 2)
+table['Male','Regul']
 
 #Зад 2
 #барплот на броя на типовете пушачи
@@ -54,10 +73,10 @@ hist(survey$Height, breaks = 20)
 
 #Зад 5
 #хистограма на пулса на студентите
-hist(survey$Pulse)
+hist(survey$Pulse, prob = TRUE)
 
 #графика плътността на разпределението на пулса 
-plot(density(survey$Pulse, na.rm = TRUE))
+lines(density(survey$Pulse, na.rm = TRUE))
 
 #Зад 6
 group1 = survey[survey$Age < 20,]
