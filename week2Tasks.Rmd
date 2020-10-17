@@ -1,7 +1,7 @@
 ---
 title: "Week 2 tasks"
 author: "teodor dyakov"
-date: "10/15/2020"
+date: "10/18/2020"
 output:
   word_document: default
   html_document: default
@@ -70,7 +70,7 @@ table['Male','Regul']
 barplot(table(survey$Smoke))
 
 #пушене в зависимост от пола
-table = prop.table(table(survey$Sex,survey$Smoke),)
+table = prop.table(table(survey$Smoke,survey$Sex),)
 barplot(table, legend.text = TRUE)
 
 #Зад 3
@@ -92,7 +92,7 @@ sd(femaleHeights, na.rm = TRUE)
 sum(abs(survey$Height - heightMean) <= heightSd, na.rm = TRUE)/sum(!is.na(survey$Height))
 
 #Зад 4
-hist(survey$Height, breaks = 20)
+hist(survey$Height)
 
 #Зад 5
 #хистограма на пулса на студентите
@@ -106,10 +106,13 @@ group1 = survey[survey$Age < 20,]
 group2 = survey[survey$Age >= 20 & survey$Age < 25,]
 group3 = survey[survey$Age >= 25,]
 
-pie(x = c(nrow(group1), nrow(group3), nrow(group3)), labels = c('< 20', '20-25', '> 25'), main = 'Age of students')
+pie(x = c(nrow(group1), nrow(group2), nrow(group3)), labels = c('< 20', '20-25', '> 25'), main = 'Age of students')
 
 barplot(table(group1$Smoke), main = 'smoking habits, < 20 years')
 barplot(table(group2$Smoke), main = 'smoking habits, 20-25 years')
 barplot(table(group3$Smoke), main = 'smoking habits, > 25 years old')
 
+#втори начин:
+survey['gr'] = findInterval(survey$Age, c(20,25))
+barplot(prop.table(table(survey$Smoke, survey$gr),2), legend = TRUE, names.arg = c('<20','20-25','>=25'))
 ```
