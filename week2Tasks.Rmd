@@ -19,44 +19,51 @@ library(MASS)
 unique(survey$Smoke)
 
 #Задача 1
-#вероятноста случайно избран човек да е редовен пушач
-sum(survey$Smoke == 'Regul', na.rm = TRUE)/nrow(survey)
 
-maleSmokers = sum(survey$Smoke == 'Regul' & survey$Sex == 'Male', na.rm = TRUE)
+#а) - вероятноста случайно избран човек да е редовен пушач:
 
-#вероятността случайно избран човек да е мъж и редовен пушач
-maleSmokers/nrow(survey)
+#броя на хората за които Smoke != N/A
+n_people = nrow(survey[!is.na(survey$Smoke),])
 
-#броят на всички мъже
-maleNumber = sum(survey$Sex == 'Male', na.rm = TRUE)
+sum(survey$Smoke == 'Regul', na.rm = TRUE)/n_people
 
-#вероятността случайно избран мъж да е редовен пушач
-maleSmokers/maleNumber
-
-#броят на всички редовни пушачи
-regulCount = sum(survey$Smoke == 'Regul', na.rm = TRUE)
-
-#вероятноста случайно избран редовен пушач да е мъж
-maleSmokers/regulCount
-
-
-#втори начин със позлване на prop.table()
-
-#вероятността случайно избран човек да е редовен пушач
+#втори начин:
 table = prop.table(table(survey$Smoke),)
 table['Regul']
 
-#вероятността случайно избран човек да е мъж и редовен пушач
+
+#б) - вероятността случайно избран човек да е мъж и редовен пушач
+
+maleSmokers = sum(survey$Smoke == 'Regul' & survey$Sex == 'Male', na.rm = TRUE)
+
+maleSmokers/(sum(!is.na(survey$Sex) & !is.na(survey$Smoke)))
+
+#втори начин
 table = prop.table(table(survey$Sex,survey$Smoke),)
 table['Male', 'Regul']
 
-#вероятносттa мъж да е редовен пушач
+
+#в) - вероятността случайно избран мъж да е редовен пушач
+
+#броят на всички мъже 
+maleNumber = sum(survey$Sex == 'Male' & !is.na(survey$Smoke), na.rm = TRUE)
+maleSmokers/maleNumber
+
+#втори начин
 table = prop.table(table(survey$Sex,survey$Smoke), 1)
 table['Male', 'Regul']
 
-#вероятността редовен пушач да е мъж:
+
+#г) - вероятноста случайно избран редовен пушач да е мъж
+
+#броят на всички редовни пушачи
+regulCount = sum(survey$Smoke == 'Regul', na.rm = TRUE)
+maleSmokers/regulCount
+
+#втори начин
 table = prop.table(table(survey$Sex,survey$Smoke), 2)
 table['Male','Regul']
+
 
 #Зад 2
 #барплот на броя на типовете пушачи
