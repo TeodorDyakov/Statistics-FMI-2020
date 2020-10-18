@@ -114,5 +114,5 @@ barplot(table(group3$Smoke), main = 'smoking habits, > 25 years old')
 
 #втори начин:
 survey['gr'] = findInterval(survey$Age, c(20,25))
-barplot(prop.table(table(survey$Smoke, survey$gr),2), legend = TRUE, names.arg = c('<20','20-25','>=25'))
+barplot(prop.table(table(survey$Smoke, survey$gr),2), legend = TRUE, names.arg = c('<20','20-25','>=25'),main = 'Smoking habits by age')
 ```
